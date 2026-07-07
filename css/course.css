@@ -543,6 +543,81 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
   box-shadow:0 4px 14px rgba(16,42,90,.35)}
 .guide-dl:hover{background:#1b4380}
 
+/* ============ QUIZ de tarjetas (opción múltiple) ============ */
+.quizx{position:absolute;inset:0;background:linear-gradient(160deg,#fbfcfe 0%,#eef3fa 100%);
+  display:flex;flex-direction:column;padding:34px 56px 30px 88px;font-family:Arimo,Arial,sans-serif}
+.qx-band{position:absolute;left:0;top:0;bottom:0;width:44px;background:#23559F}
+.qx-logo{position:absolute;top:22px;right:26px;width:52px;height:52px;border-radius:50%;
+  background:#23559F;color:#fff;font:700 17px/52px Arimo,Arial,sans-serif;text-align:center;
+  box-shadow:0 3px 10px rgba(16,42,90,.25)}
+.qx-badge{font:700 13px/1 Arimo,Arial,sans-serif;letter-spacing:1.4px;color:#23559F;
+  background:rgba(35,85,159,.1);border:1px solid rgba(35,85,159,.28);border-radius:14px;
+  padding:7px 14px;align-self:flex-start;margin-bottom:12px}
+.qx-title{font-size:30px;font-weight:700;color:#002856;margin-bottom:8px}
+.qx-q{font-size:20px;line-height:1.4;font-weight:700;color:#0d2b52;margin:2px 0 16px;max-width:1080px}
+.qx-opts{flex:1;display:flex;flex-direction:column;gap:14px;min-height:0;justify-content:center;padding-bottom:10px}
+.qx-opt{display:flex;align-items:center;gap:16px;text-align:left;width:100%;
+  background:#fff;border:2px solid #d7dfec;border-radius:14px;padding:14px 18px;cursor:pointer;
+  font-family:inherit;box-shadow:0 1px 4px rgba(16,42,90,.06);
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease,opacity .3s ease}
+.qx-opt:hover{border-color:#23559F;box-shadow:0 6px 16px rgba(16,42,90,.14)}
+.sl .qx-opt[data-step].on:hover{transform:translateY(-2px);transition:opacity .55s ease,transform .16s ease}
+.qx-l{flex:0 0 38px;height:38px;border-radius:50%;background:rgba(35,85,159,.1);color:#23559F;
+  font-size:17px;font-weight:700;line-height:38px;text-align:center;transition:background .16s,color .16s}
+.qx-opt:hover .qx-l{background:#23559F;color:#fff}
+.qx-t{font-size:17px;line-height:1.35;color:#1d2c42;font-weight:500}
+.qx-mark{margin-left:auto;flex:0 0 30px;height:30px;border-radius:50%;font-size:17px;font-weight:700;
+  line-height:30px;text-align:center;color:#fff;visibility:hidden}
+/* estados tras responder */
+.quizx.answered .qx-opt{cursor:default;transform:none;box-shadow:none}
+.quizx.answered .qx-opt:hover{border-color:#d7dfec}
+.sl .quizx.answered .qx-opt[data-step].on:hover{transform:none}
+.quizx.answered .qx-opt:hover .qx-l{background:rgba(35,85,159,.1);color:#23559F}
+.quizx.answered .qx-opt.dim{opacity:.5}
+.qx-opt.good{border-color:#2e8540!important;background:#f0f9f1!important}
+.qx-opt.good .qx-l{background:#2e8540;color:#fff}
+.qx-opt.good .qx-mark{visibility:visible;background:#2e8540}
+.qx-opt.good .qx-mark::before{content:'✔'}
+.qx-opt.bad{border-color:#d64545!important;background:#fdf1f1!important}
+.qx-opt.bad .qx-l{background:#d64545;color:#fff}
+.qx-opt.bad .qx-mark{visibility:visible;background:#d64545}
+.qx-opt.bad .qx-mark::before{content:'✘'}
+
+/* Franja de resultado en la diapositiva de justificación */
+.ans-banner{position:absolute;top:14px;right:84px;z-index:7;display:flex;align-items:center;gap:8px;
+  font:700 14px/1 Arimo,Arial,sans-serif;padding:10px 16px;border-radius:20px;color:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.22);animation:hintIn .4s ease both}
+.ans-banner.good{background:#2e8540}
+.ans-banner.bad{background:#d64545}
+
+/* Tarjeta de puntaje al cerrar el cuestionario */
+.score-card{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:7;
+  background:#fff;border:2px solid #23559F;border-radius:18px;padding:18px 30px;text-align:center;
+  font-family:Arimo,Arial,sans-serif;box-shadow:0 10px 30px rgba(16,42,90,.25);animation:hintIn .5s ease both}
+.score-card .sc-big{font-size:30px;font-weight:700;color:#23559F}
+.score-card .sc-sub{font-size:14px;color:#40536e;margin-top:4px}
+
+/* ============ Visor de guías (M5/M6) ============ */
+.guidex{position:absolute;inset:0;background:#e9eef6;display:flex;flex-direction:column;font-family:Arimo,Arial,sans-serif}
+.gx-head{flex:0 0 66px;display:flex;align-items:center;gap:14px;padding:0 22px;
+  background:linear-gradient(90deg,#1b4380,#23559F);color:#fff;box-shadow:0 2px 8px rgba(16,42,90,.3);z-index:3}
+.gx-ico{font-size:26px}
+.gx-meta{min-width:0;flex:1}
+.gx-t{font-size:17px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gx-p{font-size:12.5px;opacity:.85;margin-top:2px}
+.gx-dl{flex:0 0 auto;background:#fff;color:#1b4380;font-weight:700;font-size:14px;
+  padding:10px 16px;border-radius:20px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.gx-dl:hover{background:#dbe7f7}
+.gx-body{flex:1;overflow-y:auto;padding:18px 0 40px;scrollbar-width:thin}
+.gx-body img{display:block;width:86%;margin:0 auto;border-radius:10px;box-shadow:0 8px 26px rgba(16,42,90,.18)}
+.gx-fade{position:absolute;left:0;right:0;bottom:0;height:56px;pointer-events:none;
+  background:linear-gradient(rgba(233,238,246,0),rgba(233,238,246,.95));transition:opacity .3s;z-index:2}
+.gx-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:3;
+  width:34px;height:34px;border-radius:50%;background:#23559F;color:#fff;text-align:center;
+  font-size:15px;line-height:34px;pointer-events:none;animation:gxBounce 1.6s ease-in-out infinite;transition:opacity .3s}
+.guidex.scrolled .gx-hint,.guidex.scrolled .gx-fade{opacity:0}
+@keyframes gxBounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+
 /* Quiz interactivo ligero: zonas clicables sobre las opciones del PDF */
 .qopt{position:absolute;z-index:8;cursor:pointer;border-radius:12px;border:2px solid transparent;
   transition:background .18s ease,border-color .18s ease}

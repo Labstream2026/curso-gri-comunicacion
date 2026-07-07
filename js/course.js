@@ -64,7 +64,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=14';
+    const V = '?v=15';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),
@@ -262,7 +262,10 @@
     node.innerHTML = inner;
     stage.appendChild(node);
     fitPptxText(node);
-    if (s.correct) mountQuizLite(node, s);
+    if (s.correct) { if ($('.quizx', node)) mountQuizX(node, s); else mountQuizLite(node, s); }
+    mountGuide(node);
+    mountAnswerBanner(node, s);
+    mountScoreCard(node, s);
 
     // calcular plan de revelado (qué steps del DOM aparecen en cada parte)
     State.plan = computeRevealPlan(node, s);
@@ -291,6 +294,88 @@
         e.style.scale = r.toFixed(4) + ' 1';
       }
     });
+  }
+
+  // ============================================================
+  //  QUIZ de tarjetas (opción múltiple)
+  // ============================================================
+  function mountQuizX(node, s) {
+    const box = $('.quizx', node);
+    // texto largo: reducir tipografía hasta que quepa
+    requestAnimationFrame(() => {
+      let guard = 8;
+      while (guard-- > 0 && box.scrollHeight > box.clientHeight + 4) {
+        $$('.qx-t, .qx-q', box).forEach(e => {
+          const f = parseFloat(getComputedStyle(e).fontSize);
+          e.style.fontSize = (f - 1) + 'px';
+        });
+      }
+    });
+    const prev = State.quizAnswered[s.id];
+    if (prev) paintQuizX(box, s, typeof prev === 'string' ? prev : null);
+    $$('.qx-opt', box).forEach(b => {
+      b.onclick = () => {
+        if (State.quizAnswered[s.id]) return;
+        if (!b.classList.contains('on')) return;   // aún no lo ha leído el locutor
+        State.quizAnswered[s.id] = b.dataset.letter;
+        saveProgress();
+        paintQuizX(box, s, b.dataset.letter);
+        const good = b.dataset.letter === s.correct;
+        const chip = el('div', 'qresult ' + (good ? 'good' : 'bad'),
+          good ? '✔ ¡Correcto! Veamos por qué…'
+               : '✘ La correcta es la ' + s.correct.toUpperCase() + '). Veamos por qué…');
+        box.appendChild(chip);
+        setTimeout(() => {
+          if (State.slides[State.i] === s && State.autoplay) next();
+          else { const h = $('.next-hint', node); if (h) h.remove(); showNextHint(); }
+        }, 2400);
+      };
+    });
+  }
+  function paintQuizX(box, s, chosen) {
+    box.classList.add('answered');
+    $$('.qx-opt', box).forEach(b => {
+      const L = b.dataset.letter;
+      if (L === s.correct) b.classList.add('good');
+      else if (chosen && L === chosen) b.classList.add('bad');
+      else b.classList.add('dim');
+    });
+  }
+
+  // Guías M5/M6: ocultar la pista de scroll al desplazarse
+  function mountGuide(node) {
+    const g = $('.guidex', node);
+    if (!g) return;
+    const body = $('.gx-body', g);
+    body.addEventListener('scroll', () => { g.classList.add('scrolled'); }, { once: true });
+  }
+
+  // Franja "Tu respuesta" en la diapositiva de justificación
+  function mountAnswerBanner(node, s) {
+    if (!s.forQuiz) return;
+    const chosen = State.quizAnswered[s.forQuiz];
+    if (typeof chosen !== 'string') return;
+    const q = State.slides.find(x => x.id === s.forQuiz);
+    const good = q && chosen === q.correct;
+    const b = el('div', 'ans-banner ' + (good ? 'good' : 'bad'),
+      good ? '✔ Tu respuesta: ' + chosen.toUpperCase() + ') — correcta'
+           : '✘ Tu respuesta: ' + chosen.toUpperCase() + ') · Correcta: ' + (q ? q.correct.toUpperCase() : '') + ')');
+    node.appendChild(b);
+  }
+
+  // Puntaje al cierre del cuestionario final
+  function mountScoreCard(node, s) {
+    if (!s.scoreCard) return;
+    const qs = State.slides.filter(x => x.correct && x.id.startsWith('qs'));
+    const answered = qs.filter(x => typeof State.quizAnswered[x.id] === 'string');
+    if (!answered.length) return;
+    const good = answered.filter(x => State.quizAnswered[x.id] === x.correct).length;
+    const pct = Math.round(good / qs.length * 100);
+    const card = el('div', 'score-card',
+      '<div class="sc-big">' + good + ' de ' + qs.length + '</div>' +
+      '<div class="sc-sub">respuestas correctas en el cuestionario final · ' + pct + ' %' +
+      (answered.length < qs.length ? ' · ' + (qs.length - answered.length) + ' sin responder' : '') + '</div>');
+    node.appendChild(card);
   }
 
   // ============================================================
