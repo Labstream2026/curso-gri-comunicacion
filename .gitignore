@@ -1,10 +1,9 @@
-# Imágenes extraídas de la PPT: se versionan solo las que usa el curso (las demás se re-extraen)
+# Imágenes: se versionan las del render del PPT (img/pptx) y las usadas por los archetipos
 img/*
+!img/pptx/
+!img/pptx/**
 !img/image1.jpg
 !img/image53.jpg
-!img/image8.jpeg
-!img/image10.jpeg
-!img/image34.jpeg
 !img/m1_image57.jpeg
 !img/m1_image58.png
 !img/m1_image59.png
@@ -12,3 +11,4 @@ img/*
 !img/m1_image63.png
 !img/m1_image65.png
 .DS_Store
+_test*.html

@@ -43,6 +43,9 @@
   const V = {};
   window.SlideViews = {
     render(s) {
+      // Diapositiva fiel al PPT (render del PPTX) si existe
+      const ph = window.PPTX_HTML && window.PPTX_HTML[s.id];
+      if (ph) return '<div class="pptx-slide" data-step="always">' + ph + '</div>';
       const d = mergedDef(s);
       const fn = V[d.kind] || V.bullets;
       return fn(s, d);

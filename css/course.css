@@ -514,3 +514,7 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
 
 /* Ilustración lateral (etapas / conceptos) */
 .m-illus{position:absolute;object-fit:contain;pointer-events:none}
+
+/* Diapositiva fiel al PPT (render del PPTX en formas absolutas) */
+.pptx-slide{position:absolute;inset:0;background:#fff;overflow:hidden}
+.pptx-slide img{display:block}
