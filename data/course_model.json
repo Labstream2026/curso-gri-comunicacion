@@ -1,0 +1,179 @@
+{
+  "modules": {
+    "0": "Introducción",
+    "1": "Módulo 1: Redacción de informes de sostenibilidad"
+  },
+  "slides": [
+    {
+      "id": "s01", "ppt": 1, "module": 0, "type": "content",
+      "title": "Tutoría GRI sobre comunicación efectiva en los reportes de sostenibilidad",
+      "screen_text": "Introducción a la tutoría", "media": ["image1.jpg"],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Buen día. Les damos la bienvenida a la tutoría sobre comunicación efectiva en los reportes de sostenibilidad.",
+          "file": "audio/s01.mp3" }
+      ]
+    },
+    {
+      "id": "s02", "ppt": 2, "module": 0, "type": "content",
+      "title": "¿Qué es el Global Reporting Initiative - GRI?",
+      "screen_text": "Organización internacional independiente.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Antes de comenzar, introduciremos al Global Reporting Initiative y la estructura de los Estándares GRI. El Global Reporting Initiative, o GRI, es una organización internacional independiente que ayuda a las empresas y a otras organizaciones a asumir la responsabilidad de sus impactos en cuestiones de sostenibilidad; esto incluye temas como el cambio climático, los derechos humanos, la gobernanza y el bienestar social. Su misión es empoderar la toma de decisiones para generar beneficios sociales, ambientales y económicos, proporcionando a las organizaciones un lenguaje global para divulgar sus impactos.",
+          "file": "audio/s02.mp3" }
+      ]
+    },
+    {
+      "id": "s03", "ppt": 3, "module": 0, "type": "content",
+      "title": "Sistema de los Estándares GRI",
+      "screen_text": "Estándares Universales, Sectoriales y Temáticos.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Los Estándares GRI se dividen en tres series: Universales, Sectoriales y Temáticos. Los Universales incluyen el GRI 1, Fundamentos, que establece el propósito y los principios del sistema; el GRI 2, Contenidos Generales, que detalla la información de la organización, como las actividades que desarrolla y su gobernanza; y el GRI 3, Temas Materiales, que guía la identificación de los temas materiales y su gestión. Los Estándares Sectoriales ofrecen directrices específicas según el sector, y los Estándares Temáticos abordan los impactos materiales en áreas económicas, ambientales y sociales. Para conocer más sobre los Estándares GRI, te invitamos a tomar el Curso de Certificación Profesional de GRI en el GRI Academy, o con nuestros entrenadores certificados.",
+          "file": "audio/s03.mp3" }
+      ]
+    },
+    {
+      "id": "s04", "ppt": 4, "module": 0, "type": "content",
+      "title": "GRI 1: Fundamentos 2021 · Requerimientos",
+      "screen_text": "Informe de conformidad con los Estándares GRI: 9 requisitos.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "El Estándar GRI 1, Fundamentos, establece las bases para la elaboración de informes de sostenibilidad; además, incluye un glosario con las definiciones que deben aplicarse al utilizar los Estándares GRI. Dentro del Estándar GRI 1 se indica que existen dos tipos de informes que puedes presentar: de conformidad con los Estándares GRI, y referenciando los Estándares GRI. Si en tu organización deciden presentar un informe de conformidad con los Estándares GRI, se deben cumplir estos nueve requisitos: aplicar los principios para la elaboración de informes; presentar los contenidos correspondientes al Estándar GRI 2, Contenidos Generales; determinar los temas materiales; presentar los contenidos correspondientes al Estándar GRI 3, Temas Materiales; presentar contenidos de los Estándares Temáticos GRI para cada tema material; proporcionar los motivos para la omisión relativos al contenido o al requisito que no se pueda cumplir; publicar un índice de contenidos GRI; proporcionar una declaración de uso; y notificar a GRI.",
+          "file": "audio/s04.mp3" }
+      ]
+    },
+    {
+      "id": "s05", "ppt": 5, "module": 0, "type": "content",
+      "title": "GRI 1: Fundamentos 2021 · Requerimientos",
+      "screen_text": "Informe referenciando los Estándares GRI: 3 requisitos.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Por otro lado, si en tu organización deciden presentar un informe referenciando los Estándares GRI, estos son los tres requisitos mínimos que se deben cumplir: publicar un índice de contenidos GRI; proporcionar una declaración de uso; y notificar a GRI. Es importante tener en cuenta que los Estándares GRI son flexibles y reconocen que informar cuando existe información que no está disponible o que está en construcción es fundamental para garantizar la transparencia. Por ello, el requerimiento número seis, motivos de omisión, contempla la posibilidad de usarlos cuando la organización tiene una situación que no le permite cumplir con un contenido o con alguno de sus requerimientos.",
+          "file": "audio/s05.mp3" }
+      ]
+    },
+    {
+      "id": "s06", "ppt": 6, "module": 0, "type": "content",
+      "title": "Motivos de omisión",
+      "screen_text": "No procede · Prohibiciones legales · Restricciones de confidencialidad · Información no disponible.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Estas razones incluyen que el contenido no proceda; es decir, que por las características de la organización, como su tamaño o tipo, o por los impactos significativos en relación con el tema material, el requerimiento no aplique a su contexto. Asimismo, se contemplan las prohibiciones legales, que aplican cuando la ley prohíbe que la organización recoja la información solicitada o que la haga pública. Las restricciones de confidencialidad implican que la organización considera que la información es confidencial y no puede hacerla pública. Y, finalmente, el motivo de información no disponible o incompleta considera que la organización dispone del contenido, pero la información no está disponible o se encuentra en construcción. Cualquiera de estos motivos es permitido por GRI; sin embargo, la organización debe especificar el contenido que no puede cumplir y proporcionar uno de los cuatro motivos, junto con su justificación.",
+          "file": "audio/s06.mp3" }
+      ]
+    },
+    {
+      "id": "s07", "ppt": 7, "module": 0, "type": "content",
+      "title": "Objetivos de la tutoría — General",
+      "screen_text": "Desarrollar habilidades efectivas para elaborar informes de sostenibilidad en las MiPymes.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "El GRI cuenta con el Programa de Negocios Competitivos, una iniciativa que busca motivar a las organizaciones a comprometerse con el desarrollo de reportes de sostenibilidad para que puedan identificar, medir, gestionar y comunicar las contribuciones e impactos de su gestión. Es así como GRI, junto con sus aliados estratégicos, busca crear una cultura de empresas responsables con el desarrollo sostenible, promover la transparencia con sus grupos de interés e incentivar el reporte bajo los mismos parámetros de las grandes compañías. Por lo anterior, el objetivo general de esta tutoría es desarrollar habilidades efectivas en las personas encargadas de elaborar informes de sostenibilidad en las MiPymes, ayudando a quienes no necesariamente son profesionales de la sostenibilidad o de la comunicación.",
+          "file": "audio/s07.mp3" }
+      ]
+    },
+    {
+      "id": "s08", "ppt": 8, "module": 0, "type": "content",
+      "title": "Objetivos de la tutoría — De aprendizaje",
+      "screen_text": "Siete objetivos de aprendizaje.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "A lo largo de las sesiones desarrollaremos los siguientes objetivos de aprendizaje: comprender metodologías, formatos y estilos para la redacción de informes de sostenibilidad; explorar diversas técnicas y estilos de redacción adaptados a estos informes; conocer y aplicar estrategias de organización y jerarquización de la información para asegurar mensajes claros y efectivos; reforzar conocimientos fundamentales de gramática y redacción; entender y aplicar los Estándares GRI y sus principios para mejorar la calidad de la información; aplicar técnicas de visualización de datos para facilitar su interpretación; y explorar cómo incorporar la inteligencia artificial como potencializador del trabajo humano en la elaboración de informes.",
+          "file": "audio/s08.mp3" }
+      ]
+    },
+    {
+      "id": "s09", "ppt": 9, "module": 0, "type": "content",
+      "title": "Contenidos de la tutoría",
+      "screen_text": "Seis módulos.", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Los contenidos que abarcaremos son: en el Módulo 1, los tipos de texto, el proceso de escritura, la estructura del texto y la adaptación del estilo y el tono según el público. En el Módulo 2, las estrategias de organización y jerarquización de la información. En el Módulo 3, los principios básicos de redacción, la construcción y conexión de ideas, y el estilo y presentación de los textos. En el Módulo 4, la estructura básica de un informe de sostenibilidad, los principios para su elaboración y el proceso para su construcción respondiendo al Estándar GRI. Y, finalmente, en los Módulos 5 y 6, a través de guías, conoceremos las técnicas de visualización de datos y cómo la inteligencia artificial puede apoyar la elaboración de informes. Las guías estarán disponibles para descarga en el GRI Academy.",
+          "file": "audio/s09.mp3" }
+      ]
+    },
+    {
+      "id": "m1s01", "ppt": 101, "module": 1, "type": "content",
+      "title": "Módulo 1. Redacción de informes de sostenibilidad", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Buen día. Les damos la bienvenida al módulo de redacción de informes de sostenibilidad. En este espacio abordaremos diversas pautas y recomendaciones para facilitar la estructuración, creación y desarrollo de los textos que harán parte del informe de sostenibilidad, atendiendo a las normas del idioma español y al contexto en el cual es necesaria la generación de este tipo de documentos.",
+          "file": "audio/m1s01_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s02", "ppt": 102, "module": 1, "type": "content",
+      "title": "Agenda", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "En este módulo entenderemos los objetivos de aprendizaje y entraremos en materia viendo los tipos de texto y el proceso de escritura con sus etapas. Luego abordaremos la estructura del informe de sostenibilidad, cómo adaptar el estilo y el tono según el público, y cerraremos con las lecciones aprendidas y un cuestionario.",
+          "file": "audio/m1s02_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s03", "ppt": 103, "module": 1, "type": "content",
+      "title": "Sección 1. Objetivos de aprendizaje", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Para comenzar, veamos cuáles son los objetivos de aprendizaje del módulo.",
+          "file": "audio/m1s03_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s04", "ppt": 104, "module": 1, "type": "content",
+      "title": "Objetivos de aprendizaje", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "El primer módulo de la tutoría tiene como objetivo que el participante comprenda metodologías, formatos y estilos para la redacción de informes de sostenibilidad, y explore diversas técnicas y estilos de redacción adaptados a estos.",
+          "file": "audio/m1s04_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s05", "ppt": 105, "module": 1, "type": "content",
+      "title": "Sección 2. Tipos de texto", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "En esta sección aprenderemos a utilizar distintos tipos de texto para crear informes de sostenibilidad claros, completos y que conecten con los lectores. Aunque el contenido es técnico, el estilo de redacción puede variar según la información que necesitemos transmitir. Conocer los tipos de texto adecuados nos ayudará a comunicar mejor los logros y retos de la organización.",
+          "file": "audio/m1s05_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s06", "ppt": 106, "module": 1, "type": "content",
+      "title": "Texto descriptivo", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Comenzaremos por el texto descriptivo, que se utiliza para brindar una idea clara y detallada de una persona, lugar, objeto o situación. Su función principal es ofrecer una representación precisa de la realidad. En los informes de sostenibilidad permite detallar con precisión aspectos como los impactos ambientales o sociales de la organización.",
+          "file": "audio/m1s06_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Por ejemplo: “En el año 2023, la organización redujo sus emisiones de carbono en un 18 %, mediante un programa de eficiencia energética que optimizó el uso de maquinaria y electricidad en sus instalaciones.” Este tipo de texto debe ser preciso para transmitir una idea clara de los esfuerzos en sostenibilidad.",
+          "file": "audio/m1s06_p1.mp3" }
+      ]
+    },
+    {
+      "id": "m1s07", "ppt": 107, "module": 1, "type": "content",
+      "title": "Texto narrativo", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "El texto narrativo se utiliza cuando queremos contar, por ejemplo, la historia de cómo la organización ha evolucionado en su enfoque hacia la sostenibilidad. Crea una conexión personal y atractiva con el lector mediante una secuencia lógica o cronológica de hechos.",
+          "file": "audio/m1s07_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Por ejemplo: “Hace cinco años, la organización se dio cuenta de que su impacto ambiental era mayor de lo estimado. Fue entonces cuando decidió reestructurar su cadena de suministro para incluir proveedores locales y reducir las emisiones del transporte.” Así el lector sigue la trayectoria de la organización: los resultados, el proceso y los retos superados.",
+          "file": "audio/m1s07_p1.mp3" }
+      ]
+    },
+    {
+      "id": "m1s08", "ppt": 108, "module": 1, "type": "content",
+      "title": "Texto argumentativo", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "El texto argumentativo es útil cuando se necesita persuadir al lector sobre la validez de un punto de vista o decisión, usando evidencias y razonamientos; en este caso, para justificar decisiones o defender posturas relacionadas con la sostenibilidad de la organización.",
+          "file": "audio/m1s08_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Por ejemplo: “Si bien algunas organizaciones prefieren opciones de transporte más económicas, nosotros hemos decidido invertir en vehículos eléctricos para nuestras entregas. Esta elección reduce nuestra huella de carbono y demuestra nuestro compromiso con la sostenibilidad a largo plazo.” Este texto explica las razones detrás de las decisiones para convencer al lector.",
+          "file": "audio/m1s08_p1.mp3" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Imágenes extraídas de la PPT que no se usan en el curso (se re-extraen si hacen falta)
+img/*
+!img/image1.jpg
+!img/image8.jpeg
+!img/image10.jpeg
+!img/image34.jpeg
+.DS_Store

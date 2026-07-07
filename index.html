@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorías GRI · Comunicación efectiva en los reportes de sostenibilidad</title>
+  <link rel="stylesheet" href="css/course.css">
+</head>
+<body>
+  <div id="app">
+    <!-- BARRA SUPERIOR -->
+    <header id="topbar">
+      <div class="brand">
+        <div class="logo">GRI</div>
+        <div style="min-width:0">
+          <div class="t">Comunicación efectiva en sostenibilidad</div>
+          <div class="s">Tutorías GRI · MiPymes</div>
+        </div>
+      </div>
+      <div class="mod-chip" id="mod-chip">Introducción</div>
+      <div class="spacer"></div>
+      <button class="tb-btn active" id="btn-index" title="Índice (i)">
+        <svg viewBox="0 0 24 24"><path d="M3 5h18v2H3zm0 6h18v2H3zm0 6h18v2H3z"/></svg> Índice
+      </button>
+      <button class="tb-btn" id="btn-transcript" title="Transcripción (t)">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 4h16v2H4zm0 4h10v2H4zm0 4h10v2H4z"/></svg> Transcripción
+      </button>
+      <button class="tb-btn" id="btn-anexo" title="Caso de estudio (PDF)">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg> Caso de estudio
+      </button>
+      <button class="tb-btn" id="btn-fs" title="Pantalla completa (f)">
+        <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z"/></svg>
+      </button>
+    </header>
+
+    <!-- ÁREA PRINCIPAL -->
+    <div id="main">
+      <!-- ÍNDICE LATERAL -->
+      <aside id="sidebar">
+        <div class="sb-head">
+          <div class="h">Contenido del curso</div>
+          <div class="sb-prog"><i id="sb-fill"></i></div>
+          <div class="sb-pct" id="sb-pct">0 %</div>
+        </div>
+        <div class="sb-list" id="sb-list"></div>
+      </aside>
+
+      <!-- STAGE -->
+      <div id="stagebox">
+        <div id="stage"></div>
+
+        <!-- OVERLAY DE INICIO -->
+        <div id="overlay">
+          <div class="card">
+            <div class="logo">GRI</div>
+            <h1>Comunicación efectiva en los reportes de sostenibilidad</h1>
+            <div class="sub">Tutoría interactiva para MiPymes · Estándares GRI</div>
+            <div class="meta">
+              <div><b>6</b> módulos</div>
+              <div><b>9</b> diapositivas · Introducción</div>
+              <div><b>18</b> evaluaciones</div>
+              <div><b>~5</b> h</div>
+            </div>
+            <div>
+              <button class="big-btn" id="ov-start">▶ Comenzar curso</button>
+              <button class="big-btn ghost hidden" id="ov-continue">Continuar donde quedé</button>
+            </div>
+            <div class="voice">Narración con voz Julian · Español latino · Reproducción automática con controles</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSCRIPCIÓN -->
+      <aside id="transcript" class="hidden">
+        <div class="tr-head">Transcripción de la narración</div>
+        <div class="tr-body" id="tr-body"></div>
+      </aside>
+    </div>
+
+    <!-- CONTROLES INFERIORES -->
+    <footer id="controls">
+      <button class="c-btn" id="btn-prev" title="Diapositiva anterior (←)">
+        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button class="c-btn" id="btn-rewind" title="Segmento anterior (↑)">
+        <svg viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6zM13 6v12l8.5-6z" transform="scale(-1,1) translate(-24,0)"/></svg>
+      </button>
+      <button class="c-btn main" id="btn-play" title="Reproducir (espacio)">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button class="c-btn" id="btn-forward" title="Siguiente segmento (↓)">
+        <svg viewBox="0 0 24 24"><path d="M13 6v12l8.5-6zM3 6v12l8.5-6z"/></svg>
+      </button>
+      <button class="c-btn" id="btn-next" title="Siguiente diapositiva (→)">
+        <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg>
+      </button>
+      <button class="c-btn" id="btn-replay" title="Repetir diapositiva (r)">
+        <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a5 5 0 11-5 5H5a7 7 0 107-7z"/></svg>
+      </button>
+
+      <div id="progwrap">
+        <div id="prog"><div class="fill"></div></div>
+        <div id="proginfo">
+          <span id="t-cur">0:00</span> / <span id="t-dur">0:00</span>
+          <div id="segdots"></div>
+          <span id="slidecount">Diapositiva 1</span>
+        </div>
+      </div>
+
+      <div class="c-group">
+        <div class="c-toggle on" id="autoplay-toggle" title="Reproducción automática">
+          <span class="sw"></span><span>Auto</span>
+        </div>
+      </div>
+      <div class="c-group" title="Velocidad">
+        <select class="c-sel" id="rate-sel">
+          <option value="0.75">0.75×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.25">1.25×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+        </select>
+      </div>
+      <div class="c-group" title="Volumen">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#9FB9E4"><path d="M3 10v4h4l5 5V5L7 10zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/></svg>
+        <input type="range" id="vol" min="0" max="1" step="0.05" value="1">
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/slides.js"></script>
+  <script src="js/modules.js"></script>
+  <script src="js/overrides.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/course.js"></script>
+</body>
+</html>
