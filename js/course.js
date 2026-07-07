@@ -26,6 +26,7 @@
     partStartTs: 0,
     scheduledReveals: [],
     plan: [],
+    stepTiming: null,     // step -> fracción dentro de su parte (sincronía con la narración)
     booted: false,
   };
 
@@ -63,7 +64,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=11';
+    const V = '?v=12';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),
@@ -264,6 +265,7 @@
   // que deben revelarse mientras esa parte se reproduce.
   function computeRevealPlan(node, s) {
     const parts = s.parts || [];
+    State.stepTiming = null;
     // steps numéricos presentes en el DOM
     const dom = Array.from(new Set(
       $$('[data-step]', node)
@@ -287,8 +289,12 @@
       return parts.map(p => (p.steps || []).filter(k => dom.includes(k)));
     }
 
+    // Sincronía con la narración: cada bloque de texto aparece cuando el locutor lo dice
+    const sync = narrationSync(node, s, dom);
+    if (sync) { State.stepTiming = sync.timing; return sync.plan; }
+
     // Distribuir los reveals del DOM entre las partes, proporcional a su longitud
-    const weights = parts.map(p => Math.max(1, (p.tts || '').length));
+    const weights = parts.map(p => Math.max(1, (p.tts || p.text || '').length));
     const total = weights.reduce((a, b) => a + b, 0);
     const plan = parts.map(() => []);
     let assigned = 0, cum = 0;
@@ -299,6 +305,90 @@
       while (assigned < target) { plan[i].push(dom[assigned]); assigned++; }
     }
     return plan;
+  }
+
+  // normaliza texto para comparar contra la narración (minúsculas, sin tildes ni signos)
+  function normTxt(t) {
+    return (t || '').toLowerCase()
+      .replace(/ge\s+erre\s+i/g, 'gri')          // el guion TTS deletrea "GRI"
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9 ]+/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  // Busca dónde menciona el locutor cada bloque de texto y devuelve:
+  //  plan[i]  = steps que se revelan durante la parte i
+  //  timing[k]= fracción (0-1) dentro de esa parte en que debe aparecer el step k
+  function narrationSync(node, s, dom) {
+    const parts = s.parts || [];
+    const nt = parts.map(p => normTxt(p.tts || p.text || ''));
+    const full = nt.join(' ');
+    if (full.length < 40) return null;
+    const bounds = []; let c = 0;
+    nt.forEach(t => { bounds.push({ a: c, b: c + t.length }); c += t.length + 1; });
+    const N = full.length;
+
+    // 1) anclar cada step por RAÍCES de palabras (tolera inflexiones: "procede"/"proceda")
+    //    con una ventana de coincidencia; no exige orden monótono (layouts en columnas)
+    const narrWords = full.split(' ');
+    const wpos = []; { let o = 0; narrWords.forEach(w => { wpos.push(o); o += w.length + 1; }); }
+    const STOP = {para:1,esta:1,este:1,estas:1,estos:1,como:1,cada:1,sobre:1,entre:1,cuando:1,donde:1,tambien:1,ademas:1,pero:1,porque:1,segun:1,hacia:1,desde:1,hasta:1,otros:1,otras:1,todos:1,todas:1,unos:1,unas:1,debe:1,deben:1,puede:1,pueden:1,tiene:1,tienen:1,manera:1,parte:1,traves:1};
+    const sig = w => !STOP[w] && (w.length >= 4 || /^\d+$/.test(w));
+    const stem = w => (/^\d+$/.test(w) ? w : w.slice(0, 5));
+    const nstems = narrWords.map(w => (sig(w) ? stem(w) : null));
+
+    const pos = {}; let cursor = 0; let matched = 0; let considered = 0;
+    dom.forEach(k => {
+      let words = normTxt($$('[data-step="' + k + '"]', node).map(e => e.textContent || '').join(' ')).split(' ').filter(Boolean);
+      if (words.length > 1 && /^\d+$/.test(words[0])) words = words.slice(1);  // "1. Título" -> quitar numeración
+      const bs = words.filter(sig).slice(0, 8).map(stem);
+      if (!bs.length) return;
+      if (bs.every(b => /^\d+$/.test(b))) return;  // chips numéricos: nunca se pronuncian, se interpolan
+      considered++;
+      const need = bs.length >= 5 ? 3 : Math.min(2, bs.length);  // bloques largos: exigir más raíces (evita falsos anclajes)
+      const find = from => {
+        for (let i = from; i < narrWords.length; i++) {
+          if (!nstems[i] || bs.indexOf(nstems[i]) < 0) continue;
+          const seen = {}; seen[nstems[i]] = 1; let cnt = 1;
+          for (let j = i + 1; j < Math.min(narrWords.length, i + 25) && cnt < need; j++) {
+            if (nstems[j] && bs.indexOf(nstems[j]) >= 0 && !seen[nstems[j]]) { seen[nstems[j]] = 1; cnt++; }
+          }
+          if (cnt >= need) return i;
+        }
+        return -1;
+      };
+      let wi = find(cursor);
+      if (wi < 0 && need >= 2) wi = find(0);  // columna anterior: buscar desde el inicio
+      if (wi >= 0) { pos[k] = wpos[wi]; matched++; if (wi >= cursor) cursor = wi + 1; }
+    });
+    if (!considered) return null;
+    if (matched < Math.max(considered >= 4 ? 2 : 1, Math.ceil(considered * 0.34))) return null;  // pocos anclajes: no fiable
+
+    // 2) interpolar los steps sin anclaje entre sus vecinos del DOM
+    const anch = dom.map(k => (pos[k] !== undefined ? pos[k] : null));
+    let prevPos = 0, prevIdx = -1;
+    for (let i = 0; i < dom.length; i++) {
+      if (anch[i] !== null) { prevPos = anch[i]; prevIdx = i; continue; }
+      let j = i + 1; while (j < dom.length && anch[j] === null) j++;
+      let nextPos = j < dom.length ? anch[j] : Math.min(N, prevPos + 0.15 * N);
+      if (nextPos < prevPos) nextPos = Math.min(N, prevPos + 0.05 * N);  // vecino fuera de orden (columnas)
+      anch[i] = prevPos + (nextPos - prevPos) * ((i - prevIdx) / (j - prevIdx));
+    }
+
+    // el primer bloque (normalmente el título) no debe esperar al final de la locución
+    if (anch.length && anch[0] > 0.15 * N) anch[0] = 0.15 * N;
+
+    // 3) posición global -> (parte, fracción dentro de la parte)
+    const plan = parts.map(() => []); const timing = {};
+    dom.forEach((k, idx) => {
+      const p = clamp(anch[idx], 0, N - 1);
+      let pi = bounds.findIndex(b => p >= b.a && p < b.b);
+      if (pi < 0) pi = parts.length - 1;
+      const len = Math.max(1, bounds[pi].b - bounds[pi].a);
+      timing[k] = clamp((p - bounds[pi].a) / len - 0.03, 0, 0.92);  // leve adelanto
+      plan[pi].push(k);
+    });
+    return { plan, timing };
   }
 
   // revela todos los pasos sin audio (modo pausa/manual)
@@ -390,18 +480,19 @@
 
   function estDuration(part) {
     // ~14 caracteres por segundo de locución en español
-    return clamp((part.tts || '').length / 14, 2.2, 60);
+    return clamp((part.tts || part.text || '').length / 14, 2.2, 60);
   }
 
-  // programa el revelado de cada step proporcional a su longitud de texto
+  // programa el revelado de cada step: sincronizado con la narración si hay
+  // timing calculado; si no, reparto uniforme dentro de la parte
   function scheduleReveals(part, dur) {
     clearRevealTimers();
     const steps = (State.plan && State.plan[State.partIdx]) || part.steps || [];
     const n = steps.length;
-    // reparto uniforme dentro de la parte, con un pequeño margen inicial
+    const tm = State.stepTiming;
     steps.forEach((stp, k) => {
-      const frac = n <= 1 ? 0 : (k / n);
-      const delay = frac * dur * 0.9 * 1000 / State.rate;
+      const frac = (tm && tm[stp] !== undefined) ? tm[stp] : (n <= 1 ? 0 : (k / n) * 0.9);
+      const delay = frac * dur * 1000 / State.rate;
       const t = setTimeout(() => {
         revealStep(stp);
         State.revealed = Math.max(State.revealed, stp);
