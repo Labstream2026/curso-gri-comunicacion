@@ -1,4 +1,6 @@
 img/*
+!img/pptx/**
+!img/pptx/
 !img/slides/
 !img/slides/**
 !img/image1.jpg
