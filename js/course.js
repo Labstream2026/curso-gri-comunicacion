@@ -16,6 +16,7 @@
     autoplay: true,
     rate: 1,
     volume: 1,
+    fontScale: 0,         // 0 normal, 1 grande, 2 extra
     revealed: 0,          // steps revelados en la diapositiva actual
     quizAnswered: {},     // id -> bool
     quizGatePassed: {},   // id -> bool (ya se puede avanzar)
@@ -47,7 +48,7 @@
       localStorage.setItem(LS_KEY, JSON.stringify({
         i: State.i, visited: State.visited, quizAnswered: State.quizAnswered,
         quizGate: State.quizGatePassed, rate: State.rate, volume: State.volume,
-        autoplay: State.autoplay, t: Date.now(),
+        autoplay: State.autoplay, fontScale: State.fontScale, t: Date.now(),
       }));
     } catch (e) {}
   }
@@ -80,12 +81,14 @@
       State.rate = saved.rate || 1;
       State.volume = saved.volume == null ? 1 : saved.volume;
       State.autoplay = saved.autoplay !== false;
+      State.fontScale = saved.fontScale || 0;
     }
 
     buildSidebar();
     bindControls();
     bindKeys();
     fitStage();
+    applyFontScale();
     window.addEventListener('resize', fitStage);
 
     // overlay de inicio
@@ -122,6 +125,7 @@
     const scale = Math.min(w / 1280, h / 720);
     stage.style.transform = 'scale(' + scale + ')';
   }
+  function applyFontScale() { const st = $('#stage'); if (st) st.dataset.fs = String(State.fontScale || 0); }
 
   // ============================================================
   //  ÍNDICE LATERAL
@@ -129,11 +133,18 @@
   function buildSidebar() {
     const list = $('#sb-list');
     list.innerHTML = '';
-    let curMod = -1;
+    let curMod = -1, group = null;
     State.slides.forEach((s, idx) => {
       if (s.module !== curMod) {
         curMod = s.module;
-        list.appendChild(el('div', 'sb-mod', State.model.modules[curMod]));
+        const mod = el('div', 'sb-mod');
+        const mt = el('span', 'mtitle'); mt.textContent = State.model.modules[curMod];
+        const chev = el('span', 'chev'); chev.textContent = '▼';
+        mod.appendChild(mt); mod.appendChild(chev);
+        const grp = el('div', 'sb-group');
+        mod.onclick = () => { mod.classList.toggle('collapsed'); grp.classList.toggle('collapsed'); };
+        list.appendChild(mod); list.appendChild(grp);
+        group = grp;
       }
       const item = el('button', 'sb-item');
       item.dataset.idx = idx;
@@ -141,7 +152,7 @@
       const label = sidebarLabel(s);
       item.innerHTML = '<span class="st">○</span><span class="n">' + label + '</span>' + badge;
       item.onclick = () => { goTo(idx, true); };
-      list.appendChild(item);
+      (group || list).appendChild(item);
     });
     refreshSidebar();
   }
@@ -167,7 +178,14 @@
     $('#sb-fill').style.width = pct + '%';
     $('#sb-pct').textContent = done + ' de ' + total + ' diapositivas · ' + pct + '%';
     const cur = $('.sb-item.current');
-    if (cur) cur.scrollIntoView({ block: 'nearest' });
+    if (cur) {
+      const grp = cur.closest('.sb-group');
+      if (grp && grp.classList.contains('collapsed')) {
+        grp.classList.remove('collapsed');
+        if (grp.previousElementSibling) grp.previousElementSibling.classList.remove('collapsed');
+      }
+      cur.scrollIntoView({ block: 'nearest' });
+    }
   }
 
   // ============================================================
@@ -626,6 +644,8 @@
     $('#rate-sel').onchange = (e) => { State.rate = parseFloat(e.target.value); if (State.audio) State.audio.playbackRate = State.rate; saveProgress(); };
     $('#vol').oninput = (e) => { State.volume = parseFloat(e.target.value); if (State.audio) State.audio.volume = State.volume; saveProgress(); };
     $('#autoplay-toggle').onclick = () => { State.autoplay = !State.autoplay; setToggle($('#autoplay-toggle'), State.autoplay); saveProgress(); };
+    $('#fs-inc').onclick = () => { State.fontScale = clamp((State.fontScale || 0) + 1, 0, 2); applyFontScale(); saveProgress(); };
+    $('#fs-dec').onclick = () => { State.fontScale = clamp((State.fontScale || 0) - 1, 0, 2); applyFontScale(); saveProgress(); };
 
     // clic en barra de progreso -> saltar dentro de la parte
     $('#prog').onclick = (e) => {

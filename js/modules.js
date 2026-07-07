@@ -31,14 +31,18 @@
       '<div class="sl-body" style="left:440px;right:56px"><div class="toc-list">' + rows + '</div></div>';
   };
 
-  // ---- Divisor de sección ----
+  // ---- Divisor de sección (con foto opcional del PPT) ----
   V.mdivider = function (s, d) {
-    return '<div style="position:absolute;inset:0;background:#fff"></div>' +
-      '<div style="position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--orange-strong)" data-step="always"></div>' +
-      gri(false) +
-      '<div style="position:absolute;left:120px;right:120px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center" data-step="always">' +
+    const hasPhoto = !!d.photo;
+    const photo = hasPhoto
+      ? '<img class="mdiv-photo" src="' + IMG + d.photo + '" alt="" data-step="always"><div class="mdiv-photo-grad" data-step="always"></div>'
+      : '';
+    const rightBound = hasPhoto ? 'right:47%' : 'right:120px';
+    return '<div style="position:absolute;inset:0;background:#fff"></div>' + photo +
+      '<div style="position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--orange-strong);z-index:3" data-step="always"></div>' +
+      '<div style="position:absolute;left:120px;' + rightBound + ';top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;z-index:3" data-step="always">' +
       '<div style="font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--orange-strong);font-weight:bold;margin-bottom:14px">' + esc(d.section || 'Sección') + '</div>' +
-      '<h1 style="font-size:44px;line-height:1.16;color:var(--blue-deep);font-weight:bold;max-width:900px">' + esc(d.title || s.title) + '</h1>' +
+      '<h1 style="font-size:44px;line-height:1.16;color:var(--blue-deep);font-weight:bold">' + esc(d.title || s.title) + '</h1>' +
       '</div>';
   };
 
@@ -77,14 +81,19 @@
       '<div class="sl-body" style="top:130px;display:flex;flex-direction:column;gap:16px;justify-content:center">' + rows + '</div>';
   };
 
-  // ---- Detalle de una etapa/paso (sub-puntos) ----
+  // ---- Detalle de una etapa/paso (sub-puntos + ilustración opcional del PPT) ----
   V.mstepdetail = function (s, d) {
     const pts = (d.points || []).map((p, i) =>
       '<div class="vitem" data-step="' + i + '"><div class="bd-ic">' + SVG.check + '</div><div>' + (p.h ? '<b>' + esc(p.h) + ':</b> ' : '') + esc(p.text || p) + '</div></div>'
     ).join('');
+    const illus = d.illus
+      ? '<div style="background:rgba(255,255,255,.95);border-radius:16px;padding:14px;width:236px;height:172px;display:flex;align-items:center;justify-content:center;margin-top:24px" data-step="always"><img src="' + IMG + d.illus + '" style="max-width:100%;max-height:100%;object-fit:contain" alt=""></div>'
+      : '';
     return gri(false) +
-      '<div class="sl-panel" style="width:340px"><div class="pt" style="font-size:28px">' + (d.stepno ? '<div style="font-size:18px;color:#BCD3F2;margin-bottom:8px">Etapa ' + d.stepno + '</div>' : '') + esc(d.title || s.title) + '</div></div>' +
-      '<div class="sl-body" style="left:390px;right:56px"><div class="vlist">' + pts + '</div></div>';
+      '<div class="sl-panel" style="width:356px;flex-direction:column;padding:0 40px">' +
+      '<div class="pt" style="font-size:28px">' + (d.stepno ? '<div style="font-size:18px;color:#BCD3F2;margin-bottom:8px">Etapa ' + d.stepno + '</div>' : '') + esc(d.title || s.title) + '</div>' + illus +
+      '</div>' +
+      '<div class="sl-body" style="left:404px;right:56px"><div class="vlist">' + pts + '</div></div>';
   };
 
   // ---- Comparación dos columnas (estilo activo/pasivo) ----

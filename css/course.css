@@ -445,3 +445,72 @@ select.c-sel{
 .gcard.blue b{color:#fff}
 .chip-row{display:flex;flex-wrap:wrap;gap:12px;align-content:center}
 .chip{background:var(--blue-bg);border:1.5px solid var(--blue-soft);color:var(--blue-deep);font-size:14.5px;padding:9px 18px;border-radius:24px}
+
+/* ============================================================
+   AJUSTES: tipografía Arial/Arimo · texto más grande · control A-/A+
+   índice colapsable · variantes con imagen
+   ============================================================ */
+/* Tipografía: Arial (igual al PPT); Arimo como equivalente métrico de respaldo */
+body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
+
+/* Texto un poco más grande por defecto + títulos más gruesos (estilo Arial Black) */
+.sl-title{font-size:39px;font-weight:800}
+.sl-title.sm{font-size:32px}
+.sl-sub{font-size:20px}
+.sl-panel .pt{font-weight:800}
+.callout{font-size:16.5px}
+.vitem{font-size:16.5px}
+.toc-item{font-size:20px}
+.sum-item{font-size:18.5px}
+.obj-item .txt{font-size:17.5px}
+.mtext{font-size:17px;line-height:1.6;color:#2A3240}
+.mtext b{color:var(--blue-deep)}
+
+/* Control de tamaño de texto: #stage[data-fs="1"|"2"] */
+#stage[data-fs="1"] .sl-title{font-size:44px}
+#stage[data-fs="1"] .sl-title.sm{font-size:36px}
+#stage[data-fs="1"] .sl-sub{font-size:22px}
+#stage[data-fs="1"] .callout,#stage[data-fs="1"] .mtext{font-size:18.5px}
+#stage[data-fs="1"] .vitem{font-size:18.5px}
+#stage[data-fs="1"] .toc-item{font-size:22.5px}
+#stage[data-fs="1"] .sum-item{font-size:20.5px}
+#stage[data-fs="1"] .obj-item .txt{font-size:19.5px}
+#stage[data-fs="1"] .quote{font-size:20px}
+#stage[data-fs="1"] .qq{font-size:23px}
+#stage[data-fs="1"] .q-opt .txt,#stage[data-fs="1"] .q-chip,#stage[data-fs="1"] .q-mitem{font-size:16px}
+#stage[data-fs="1"] .gcard{font-size:15.5px}
+#stage[data-fs="1"] .std-col .bd{font-size:13.5px}
+
+#stage[data-fs="2"] .sl-title{font-size:48px}
+#stage[data-fs="2"] .sl-title.sm{font-size:40px}
+#stage[data-fs="2"] .sl-sub{font-size:24px}
+#stage[data-fs="2"] .callout,#stage[data-fs="2"] .mtext{font-size:20.5px}
+#stage[data-fs="2"] .vitem{font-size:20.5px}
+#stage[data-fs="2"] .toc-item{font-size:25px}
+#stage[data-fs="2"] .sum-item{font-size:22.5px}
+#stage[data-fs="2"] .obj-item .txt{font-size:21px}
+#stage[data-fs="2"] .quote{font-size:22px}
+#stage[data-fs="2"] .qq{font-size:25px}
+#stage[data-fs="2"] .q-opt .txt,#stage[data-fs="2"] .q-chip,#stage[data-fs="2"] .q-mitem{font-size:17.5px}
+#stage[data-fs="2"] .gcard{font-size:16.5px}
+
+/* Botones de tamaño de texto en la barra inferior */
+.c-txt{color:#C9D8F2;border:1px solid #2E4570;background:var(--chrome-2);border-radius:7px;font-size:13px;font-weight:bold;padding:6px 10px;line-height:1;transition:.15s}
+.c-txt:hover{background:var(--blue);color:#fff}
+.c-txt.small{font-size:11px}
+.c-txt.big{font-size:16px}
+
+/* Índice colapsable por módulo */
+.sb-mod{cursor:pointer;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.sb-mod:hover{color:#B9CDF0}
+.sb-mod .chev{flex:0 0 auto;transition:transform .2s;font-size:9px;opacity:.8}
+.sb-mod.collapsed .chev{transform:rotate(-90deg)}
+.sb-group{overflow:hidden;transition:max-height .28s ease}
+.sb-group.collapsed{max-height:0!important}
+
+/* Divisor de sección con foto */
+.mdiv-photo{position:absolute;right:0;top:0;bottom:0;width:46%;object-fit:cover;height:100%}
+.mdiv-photo-grad{position:absolute;right:calc(46% - 90px);top:0;bottom:0;width:120px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));z-index:2}
+
+/* Ilustración lateral (etapas / conceptos) */
+.m-illus{position:absolute;object-fit:contain;pointer-events:none}
