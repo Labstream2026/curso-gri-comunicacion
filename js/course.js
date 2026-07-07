@@ -63,7 +63,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=10';
+    const V = '?v=11';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),

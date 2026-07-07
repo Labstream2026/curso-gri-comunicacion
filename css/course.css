@@ -515,6 +515,9 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
 /* Ilustración lateral (etapas / conceptos) */
 .m-illus{position:absolute;object-fit:contain;pointer-events:none}
 
+/* El escenario es un lienzo fijo 1280x720 (no debe encogerse como flex-item); fitStage lo escala */
+#stage{flex-shrink:0}
+
 /* Diapositiva fiel al PPT (imagen del PDF) */
 .pptx-slide{position:absolute;inset:0;background:#fff;overflow:hidden}
 .pptx-slide img{display:block}
