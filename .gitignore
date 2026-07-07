@@ -1,6 +1,6 @@
 img/*
-!img/pptx/**
-!img/pptx/
+!img/gfx/
+!img/gfx/**
 !img/slides/
 !img/slides/**
 !img/image1.jpg

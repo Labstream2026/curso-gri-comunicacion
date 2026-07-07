@@ -262,7 +262,7 @@ class Conv:
             pass
         return None
 
-    def para_html(self, p, default_color):
+    def para_html(self, p, default_color, fscale=1.0):
         runs = []
         for r in p.runs:
             t = esc(r.text)
@@ -274,8 +274,13 @@ class Conv:
                 sz = r.font.size.pt if r.font.size else None
             except Exception:
                 sz = None
+            if sz is None:
+                try:
+                    sz = p.font.size.pt if p.font.size else None
+                except Exception:
+                    sz = None
             if sz:
-                st.append('font-size:%.1fpx' % (sz * self.pxperpt))
+                st.append('font-size:%.1fpx' % (sz * fscale * self.pxperpt))
             if r.font.bold:
                 st.append('font-weight:700')
             if r.font.italic:
@@ -294,7 +299,16 @@ class Conv:
     def text_html(self, shape, force_white=False):
         tf = shape.text_frame
         default_color = '#fff' if force_white else '#000'
-        paras = [self.para_html(p, default_color) for p in tf.paragraphs]
+        # autofit del PPT: PowerPoint encoge el texto para que quepa en la caja
+        fscale = 1.0; lnred = 0.0
+        try:
+            naf = tf._txBody.find('.//a:bodyPr/a:normAutofit', NS)
+            if naf is not None:
+                fscale = int(naf.get('fontScale') or 100000) / 100000.0
+                lnred = int(naf.get('lnSpcReduction') or 0) / 100000.0
+        except Exception:
+            pass
+        paras = [self.para_html(p, default_color, fscale) for p in tf.paragraphs]
         paras = [x for x in paras if x]
         if not paras:
             return None
@@ -304,8 +318,9 @@ class Conv:
         except Exception:
             pass
         inner = ''.join(paras)
+        lh = max(0.95, 1.15 * (1.0 - lnred))
         return ('<div style="display:flex;flex-direction:column;justify-content:%s;'
-                'height:100%%;width:100%%;line-height:1.15;overflow:hidden">%s</div>' % (anchor, inner))
+                'height:100%%;width:100%%;line-height:%.2f;overflow:visible">%s</div>' % (anchor, lh, inner))
 
     def emit_shape(self, sp, tf, out, steppable=True):
         # tf: (ax,bx,ay,by) mapea coords de este nivel -> EMU de slide

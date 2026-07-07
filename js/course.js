@@ -64,7 +64,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=12';
+    const V = '?v=13';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),
@@ -223,8 +223,17 @@
 
   // Gate de quiz: no auto-avanzar hasta responder
   function canAutoAdvance(s) {
+    if (s.noauto) return false;  // preguntas y guías: el usuario avanza cuando esté listo
     if (s.type === 'quiz') return !!State.quizGatePassed[s.id];
     return true;
+  }
+
+  // aviso al terminar una diapositiva autoguiada: seguir con la flecha
+  function showNextHint() {
+    const node = $('#stage .sl');
+    if (!node || $('.next-hint', node)) return;
+    const h = el('div', 'next-hint', 'Cuando estés listo, continúa con <b>→</b>');
+    node.appendChild(h);
   }
 
   // ============================================================
@@ -247,6 +256,7 @@
     }
     node.innerHTML = inner;
     stage.appendChild(node);
+    fitPptxText(node);
 
     // calcular plan de revelado (qué steps del DOM aparecen en cada parte)
     State.plan = computeRevealPlan(node, s);
@@ -259,6 +269,22 @@
 
     buildTranscript(s);
     buildSegDots(s);
+  }
+
+  // Ajusta cada línea de texto del PDF a su ancho original (nuestra fuente
+  // difiere unos % de la del PPT); usa la propiedad `scale` para no pisar
+  // el transform de la animación de revelado.
+  function fitPptxText(node) {
+    $$('.pptx-slide [data-w]', node).forEach(e => {
+      const w = parseFloat(e.dataset.w);
+      const cw = e.scrollWidth;
+      if (!w || !cw) return;
+      const r = w / cw;
+      if (r > 0.75 && r < 1.35 && Math.abs(r - 1) > 0.02) {
+        e.style.transformOrigin = 'left center';
+        e.style.scale = r.toFixed(4) + ' 1';
+      }
+    });
   }
 
   // Calcula, para cada parte de audio, la lista de índices data-step del DOM
@@ -425,6 +451,7 @@
       revealUpTo(999);
       State.playing = false; updatePlayBtn();
       if (State.autoplay && canAutoAdvance(s)) { setTimeout(() => { if (State.i === indexOf(s)) next(); }, 2500); }
+      else if (s.noauto) { showNextHint(); }
       return;
     }
     State.partIdx = clamp(pIdx, 0, parts.length - 1);
@@ -532,6 +559,8 @@
       saveProgress();
       if (State.autoplay && canAutoAdvance(s)) {
         setTimeout(() => { if (State.playing === false && State.slides[State.i] === s) next(); }, 650);
+      } else if (s.noauto) {
+        showNextHint();
       }
     }
   }

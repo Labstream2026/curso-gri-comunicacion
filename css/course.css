@@ -535,6 +535,20 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
 .sl .rev-show[data-step]{opacity:0;transform:scale(.94);transform-origin:center center;transition:opacity .45s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
 .sl .rev-show[data-step].on{opacity:1;transform:none}
 
+/* Guías M5/M6: infografía alta con desplazamiento vertical + descarga */
+.guide-scroll{position:absolute;inset:0;overflow-y:auto;background:#fff}
+.guide-scroll img{width:100%;display:block}
+.guide-dl{position:absolute;top:16px;right:16px;z-index:5;background:#23559F;color:#fff;
+  font:600 15px/1 Arimo,Arial,sans-serif;padding:11px 16px;border-radius:22px;text-decoration:none;
+  box-shadow:0 4px 14px rgba(16,42,90,.35)}
+.guide-dl:hover{background:#1b4380}
+
+/* Aviso "continúa con →" en diapositivas autoguiadas */
+.next-hint{position:absolute;bottom:18px;right:18px;z-index:6;background:rgba(16,42,90,.92);color:#fff;
+  font:500 15px/1.2 Arimo,Arial,sans-serif;padding:10px 16px;border-radius:20px;pointer-events:none;
+  animation:hintIn .5s ease both}
+@keyframes hintIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
 /* Transición de entrada entre diapositivas */
 @keyframes slEnter{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
 #stage .sl{animation:slEnter .42s cubic-bezier(.22,.61,.36,1) both}
