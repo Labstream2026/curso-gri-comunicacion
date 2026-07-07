@@ -174,6 +174,78 @@
           "text": "Por ejemplo: “Si bien algunas organizaciones prefieren opciones de transporte más económicas, nosotros hemos decidido invertir en vehículos eléctricos para nuestras entregas. Esta elección reduce nuestra huella de carbono y demuestra nuestro compromiso con la sostenibilidad a largo plazo.” Este texto explica las razones detrás de las decisiones para convencer al lector.",
           "file": "audio/m1s08_p1.mp3" }
       ]
+    },
+    {
+      "id": "m1s09", "ppt": 109, "module": 1, "type": "content",
+      "title": "Sección 3. El proceso de escritura", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "La escritura de un informe de sostenibilidad puede parecer un reto al principio, pero siguiendo un proceso estructurado es posible crear documentos claros, concisos y efectivos. En esta sección abordaremos las etapas clave que nos ayudarán a convertir nuestras ideas y datos en un informe sólido y bien fundamentado.",
+          "file": "audio/m1s09_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s10", "ppt": 110, "module": 1, "type": "content",
+      "title": "Etapas del proceso de escritura", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Para escribir un informe garantizando la claridad, la precisión y la relevancia del contenido, se define un proceso estructurado en varias etapas: la preescritura, para recopilar información y estructurar los temas; el primer borrador, donde se plasman los conceptos y el flujo narrativo; la revisión, enfocada en la coherencia y la alineación con los grupos de interés; y la edición, para perfeccionar el lenguaje y comunicar de manera efectiva los compromisos y logros de la organización.",
+          "file": "audio/m1s10_p0.mp3" }
+      ]
+    },
+    {
+      "id": "m1s11", "ppt": 111, "module": 1, "type": "content",
+      "title": "Etapa 1. Preescritura", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Antes de poner manos a la obra necesitamos organizar nuestros pensamientos y la información recopilada. La preescritura incluye la recolección y análisis de datos: reunir cifras (emisiones, energía, iniciativas) y tenerlas actualizadas y organizadas en categorías, según los Contenidos Generales y Temáticos a reportar.",
+          "file": "audio/m1s11_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Después pasamos a la organización de las ideas: preguntarnos qué queremos destacar y cuál es nuestra historia de sostenibilidad, y armar un esquema con las secciones principales —logros, retos y futuras acciones— que nos sirva de guía durante la escritura.",
+          "file": "audio/m1s11_p1.mp3" }
+      ]
+    },
+    {
+      "id": "m1s12", "ppt": 112, "module": 1, "type": "content",
+      "title": "Etapa 2. Primer borrador", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "Una vez organizados los datos e ideas, escribimos el primer borrador. Lo importante es plasmar todas las ideas sin preocuparnos aún por el estilo o el formato. Ya se cuenta con el esqueleto del informe y se tienen claros los contenidos de los Estándares GRI que se incluirán, según los temas materiales y las expectativas de los grupos de interés.",
+          "file": "audio/m1s12_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Este es el momento de relacionar las cifras y logros con los compromisos estratégicos de sostenibilidad. El borrador no busca ser perfecto, sino sentar las bases con claridad y coherencia, alineando cada sección con los requerimientos de los Estándares GRI seleccionados e identificando los vacíos de información por completar.",
+          "file": "audio/m1s12_p1.mp3" }
+      ]
+    },
+    {
+      "id": "m1s13", "ppt": 113, "module": 1, "type": "content",
+      "title": "Etapa 3. Revisión", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "En la revisión nos enfocamos en la claridad, la coherencia y la precisión. Lo primero es la coherencia y estructura: ideas en orden lógico, secciones que fluyen de manera natural y transiciones claras entre párrafos.",
+          "file": "audio/m1s13_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "En segundo lugar, la claridad: un lenguaje comprensible para todos los lectores, simplificando lo muy técnico o agregando ejemplos que faciliten la comprensión.",
+          "file": "audio/m1s13_p1.mp3" },
+        { "phase": "m", "steps": [2],
+          "text": "Y, en tercer lugar, la revisión de datos: verificar que los números y las estadísticas sean precisos y estén bien respaldados por fuentes confiables.",
+          "file": "audio/m1s13_p2.mp3" }
+      ]
+    },
+    {
+      "id": "m1s14", "ppt": 114, "module": 1, "type": "content",
+      "title": "Etapa 4. Edición", "screen_text": "", "media": [],
+      "parts": [
+        { "phase": "m", "steps": [0],
+          "text": "En la edición afinamos los detalles estilísticos y de formato. Primero, la corrección ortográfica y gramatical: eliminar errores que puedan restar credibilidad al informe.",
+          "file": "audio/m1s14_p0.mp3" },
+        { "phase": "m", "steps": [1],
+          "text": "Segundo, la consistencia en el tono y el estilo a lo largo del documento, manteniendo un lenguaje profesional y apropiado.",
+          "file": "audio/m1s14_p1.mp3" },
+        { "phase": "m", "steps": [2],
+          "text": "Y tercero, el formato final: un informe bien organizado (títulos, subtítulos, gráficos y tablas), con un diseño limpio y atractivo que facilite la lectura.",
+          "file": "audio/m1s14_p2.mp3" }
+      ]
     }
   ]
 }
