@@ -64,7 +64,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=13';
+    const V = '?v=14';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),
@@ -229,10 +229,15 @@
   }
 
   // aviso al terminar una diapositiva autoguiada: seguir con la flecha
+  // (o elegir una opción si es un quiz sin responder)
   function showNextHint() {
     const node = $('#stage .sl');
     if (!node || $('.next-hint', node)) return;
-    const h = el('div', 'next-hint', 'Cuando estés listo, continúa con <b>→</b>');
+    const s = State.slides[State.i];
+    const esQuiz = s && s.correct && !State.quizAnswered[s.id];
+    const h = el('div', 'next-hint', esQuiz
+      ? '👆 Elige una opción para continuar'
+      : 'Cuando estés listo, continúa con <b>→</b>');
     node.appendChild(h);
   }
 
@@ -257,6 +262,7 @@
     node.innerHTML = inner;
     stage.appendChild(node);
     fitPptxText(node);
+    if (s.correct) mountQuizLite(node, s);
 
     // calcular plan de revelado (qué steps del DOM aparecen en cada parte)
     State.plan = computeRevealPlan(node, s);
@@ -285,6 +291,80 @@
         e.style.scale = r.toFixed(4) + ' 1';
       }
     });
+  }
+
+  // ============================================================
+  //  QUIZ INTERACTIVO (ligero) sobre diapositivas PDF-mix
+  //  s.correct = letra de la opción correcta; las opciones son los
+  //  bloques de texto que empiezan con "a)", "b)", ...
+  // ============================================================
+  function mountQuizLite(node, s) {
+    const wrap = $('.pptx-slide', node);
+    if (!wrap) return;
+    // agrupar líneas por paso y detectar bloques de opción
+    const groups = {};
+    $$('[data-step]', wrap).forEach(e => {
+      const k = e.dataset.step;
+      if (k === 'always' || e === wrap) return;
+      (groups[k] = groups[k] || []).push(e);
+    });
+    const options = {};
+    Object.keys(groups).forEach(k => {
+      const els = groups[k].slice().sort((a, b) => (parseFloat(a.style.top) || 0) - (parseFloat(b.style.top) || 0));
+      const m = (els[0].textContent || '').trim().toLowerCase().match(/^([a-e])\)/);
+      if (m && !options[m[1]]) options[m[1]] = groups[k];
+    });
+    const letters = Object.keys(options).sort();
+    if (letters.length < 2) return;
+
+    letters.forEach(L => {
+      const els = options[L];
+      let x0 = 1e9, y0 = 1e9, x1 = 0, y1 = 0;
+      els.forEach(e => {
+        const l = parseFloat(e.style.left) || 0, t = parseFloat(e.style.top) || 0;
+        const sc = parseFloat((e.style.scale || '1').split(' ')[0]) || 1;
+        const w = (parseFloat(e.dataset.w) || e.scrollWidth * sc);
+        const h = parseFloat(e.style.lineHeight) || 20;
+        x0 = Math.min(x0, l); y0 = Math.min(y0, t);
+        x1 = Math.max(x1, l + w); y1 = Math.max(y1, t + h);
+      });
+      const hit = el('div', 'qopt');
+      hit.style.left = (x0 - 14) + 'px'; hit.style.top = (y0 - 7) + 'px';
+      hit.style.width = (x1 - x0 + 28) + 'px'; hit.style.height = (y1 - y0 + 14) + 'px';
+      hit.dataset.letter = L;
+      hit.onclick = () => {
+        if (State.quizAnswered[s.id]) return;
+        if (!els[0].classList.contains('on')) return;  // aún no se ha revelado
+        answerQuizLite(wrap, s, L);
+      };
+      wrap.appendChild(hit);
+    });
+    // ¿ya la respondió antes? mostrar la correcta
+    if (State.quizAnswered[s.id]) paintQuizLite(wrap, s, null);
+  }
+
+  function paintQuizLite(wrap, s, chosen) {
+    $$('.qopt', wrap).forEach(h => {
+      h.classList.add('done');
+      if (h.dataset.letter === s.correct) h.classList.add('good');
+      else if (chosen && h.dataset.letter === chosen) h.classList.add('bad');
+    });
+  }
+
+  function answerQuizLite(wrap, s, L) {
+    State.quizAnswered[s.id] = true;
+    saveProgress();
+    paintQuizLite(wrap, s, L);
+    const good = L === s.correct;
+    const chip = el('div', 'qresult ' + (good ? 'good' : 'bad'),
+      good ? '✔ ¡Correcto! Veamos por qué…'
+           : '✘ La correcta es la ' + s.correct.toUpperCase() + '). Veamos por qué…');
+    wrap.appendChild(chip);
+    // pasar a la diapositiva de respuesta (narra la justificación)
+    setTimeout(() => {
+      if (State.slides[State.i] === s && State.autoplay) next();
+      else showNextHint();
+    }, 2400);
   }
 
   // Calcula, para cada parte de audio, la lista de índices data-step del DOM

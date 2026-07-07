@@ -543,6 +543,26 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
   box-shadow:0 4px 14px rgba(16,42,90,.35)}
 .guide-dl:hover{background:#1b4380}
 
+/* Quiz interactivo ligero: zonas clicables sobre las opciones del PDF */
+.qopt{position:absolute;z-index:8;cursor:pointer;border-radius:12px;border:2px solid transparent;
+  transition:background .18s ease,border-color .18s ease}
+.qopt:hover{background:rgba(35,85,159,.09);border-color:rgba(35,85,159,.45)}
+.qopt.done{cursor:default}
+.qopt.done:hover{background:none;border-color:transparent}
+.qopt.good{background:rgba(76,175,80,.16)!important;border-color:#43a047!important}
+.qopt.good::after{content:'✔';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  color:#fff;background:#2e7d32;width:26px;height:26px;border-radius:50%;text-align:center;
+  font-size:16px;line-height:26px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.qopt.bad{background:rgba(244,67,54,.13)!important;border-color:#e53935!important}
+.qopt.bad::after{content:'✘';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  color:#fff;background:#c62828;width:26px;height:26px;border-radius:50%;text-align:center;
+  font-size:16px;line-height:26px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.qresult{position:absolute;bottom:66px;left:50%;transform:translateX(-50%);z-index:9;
+  font:700 17px/1.2 Arimo,Arial,sans-serif;padding:12px 22px;border-radius:24px;color:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);animation:hintIn .4s ease both;white-space:nowrap}
+.qresult.good{background:#2e7d32}
+.qresult.bad{background:#c62828}
+
 /* Aviso "continúa con →" en diapositivas autoguiadas */
 .next-hint{position:absolute;bottom:18px;right:18px;z-index:6;background:rgba(16,42,90,.92);color:#fff;
   font:500 15px/1.2 Arimo,Arial,sans-serif;padding:10px 16px;border-radius:20px;pointer-events:none;
