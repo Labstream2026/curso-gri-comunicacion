@@ -1,7 +1,6 @@
-# Imágenes: se versionan las del render del PPT (img/pptx) y las usadas por los archetipos
 img/*
-!img/pptx/
-!img/pptx/**
+!img/slides/
+!img/slides/**
 !img/image1.jpg
 !img/image53.jpg
 !img/m1_image57.jpeg
