@@ -515,6 +515,14 @@ body{font-family:Arial,"Arimo",Helvetica,"Segoe UI",sans-serif}
 /* Ilustración lateral (etapas / conceptos) */
 .m-illus{position:absolute;object-fit:contain;pointer-events:none}
 
-/* Diapositiva fiel al PPT (render del PPTX en formas absolutas) */
+/* Diapositiva fiel al PPT (imagen del PDF) */
 .pptx-slide{position:absolute;inset:0;background:#fff;overflow:hidden}
 .pptx-slide img{display:block}
+
+/* Revelado progresivo: coberturas que se desvanecen para "ir mostrando" el contenido */
+.sl .rev-cover[data-step]{opacity:1 !important;transform:none !important;transition:opacity .55s ease;z-index:2;pointer-events:none}
+.sl .rev-cover[data-step].on{opacity:0 !important}
+
+/* Transición de entrada entre diapositivas */
+@keyframes slEnter{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
+#stage .sl{animation:slEnter .42s cubic-bezier(.22,.61,.36,1) both}
