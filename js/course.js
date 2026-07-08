@@ -52,6 +52,8 @@
         autoplay: State.autoplay, fontScale: State.fontScale, t: Date.now(),
       }));
     } catch (e) {}
+    // en el paquete SCORM, reporta avance y puntaje al LMS
+    if (window.ScormBridge) { try { window.ScormBridge.sync(State); } catch (e) {} }
   }
   function loadProgress() {
     try {
@@ -64,7 +66,7 @@
   //  ARRANQUE
   // ============================================================
   async function boot() {
-    const V = '?v=15';
+    const V = '?v=16';
     const [modelRes, defsRes, phRes] = await Promise.all([
       fetch(MODEL_URL + V),
       fetch('data/slidedefs_auto.json' + V),
